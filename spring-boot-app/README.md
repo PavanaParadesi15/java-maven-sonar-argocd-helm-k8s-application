@@ -93,7 +93,8 @@ sudo apt-get install jenkins
 ** **Note:** By default, Jenkins will not be accessible to the external world due to the inbound traffic restriction by AWS. Open port 8080 in the inbound traffic rules on the EC2 Instance. Jenkins runs on port 8080 by default.
 
 * Login to Jenkins using the below URL:
-http://<EC2Instance-publicIP>:8080
+  
+http://EC2Instance-publicIP:8080
 
 * After login to Jenkins, - Run the command in terminal of EC2 instance to copy the Jenkins Admin Password - 
 ```sudo cat /var/lib/jenkins/secrets/initialAdminPassword ```
