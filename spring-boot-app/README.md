@@ -154,11 +154,49 @@ _**useradd:**_
 
 ## Next Step - Installing Kubernetes
 
-* Install Kubectl first
-https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/   # ON windows 
+### Install Minikube
 
-Configure Miniqube
-https://minikube.sigs.k8s.io/docs/start/?arch=%2Fwindows%2Fx86-64%2Fstable%2F.exe+download
+Follow the steps in the below link
+
+https://minikube.sigs.k8s.io/docs/start/?arch=%2Flinux%2Fx86-64%2Fstable%2Fbinary+download
+
+
+* We need Kubectl to interact with a Minikube Kubernetes cluster. **kubectl** is the Kubernetes Command-Line Tool. It is used to communicate with your Kubernetes cluster for operations like deploying applications, checking cluster resources, and managing configurations.
+* While Minikube sets up a local Kubernetes cluster, kubectl is the tool you use to interact with it.
+
+#### Install Kubectl using below link
+
+https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+
+## ARGO CD 
+
+* Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
+* To install Argo CD, we need to install Argo CD controller first. 
+* For any K8s controller installation should take place using K8s Operators which manages lifecycle of K8s controllers, like upgrades of controllers etc. 
+* Argo CD installation is done through operator
+
+To check for operators - https://operatorhub.io/
+
+To install ArgoCD operator -- https://operatorhub.io/operator/argocd-operator
+* OLM installation is one time installation. Next time we just need to install required operators 
+
+Install argocd through the steps in the above link
+
+
+## JenkinsFile
+
+CI part is done through Jenkins and CD part is done through ArgoCD which is GitOps tools to deploy application on K8s
+Difference between mvn clean install and mvn clean package 
+mvn clean install - If we want to push the jar/war/ear artifact created after the build process to some artifactory then we can use 'install' command
+mvn clean package - When we just want the artifact to create docker image and publish that image to docker hub/image repo.
+
+**Pom.xml** - File which contains all the project dependencies needed to run the application . Maven downloads all the dependencies in pom.xml and builds the java application to create jar/war/ear file. which are java/web/enterprise archive files. 
+* This artifact is saved inside target folder 
+* Docker file copies this artifact and executes it to create docker image
+* Docker image is pushed to Docker Hub
+* deployment.yaml file is created where Argo CD pulls the deployment file from the git repository and deploys the application to the K8s cluster.
+* Jenkins updates the updated image to the deployment.yaml. For this we need to store docker and github credentials in Docker. So that jenkins should connect with docker and github
+
 
 
 
