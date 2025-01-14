@@ -14,7 +14,7 @@ pipeline {
                 branches: [[name: '*/main']],
                 userRemoteConfigs: [[
                     url: 'https://github.com/PavanaParadesi15/java-maven-sonar-argocd-helm-k8s-application/',
-                    credentialsId: 'github'
+                    credentialsId: 'github-creds'
                 ]]
             ])
     sh 'echo passed'
