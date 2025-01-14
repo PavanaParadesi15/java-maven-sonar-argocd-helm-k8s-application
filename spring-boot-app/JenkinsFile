@@ -9,21 +9,18 @@
     stage('Checkout') {
       steps {
         sh 'echo passed'
-        //git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
+        git branch: 'main', url: 'https://github.com/PavanaParadesi15/java-maven-sonar-argocd-helm-k8s-application.git'
       }
     }
 
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
-        // build the project and create a JAR file
-        // Maven is already available in the docker image which is used as agent in the initial steps
-        // Go to application folder and execute maven target
-        //mvn clean package finds pom.xml in the repo, to get the dependencies and build the project
-        // In this stage an artifact is generated which is a JAR file.
-        sh 'cd java-maven-sonar-argocd-helm-k8s-application/spring-boot-app && mvn clean package'
+        //sh 'cd java-maven-sonar-argocd-helm-k8s-application/spring-boot-app && mvn clean package'
+        sh 'cd spring-boot-app && mvn clean package'
       }
     }
+     
     stage('Static Code Analysis') {
       environment {
         // Jenkins will use this sonarqube URL to send the report to sonar server
