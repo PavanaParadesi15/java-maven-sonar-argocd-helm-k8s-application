@@ -21,7 +21,7 @@ pipeline {
         // Go to application folder and execute maven target
         //mvn clean package finds pom.xml in the repo, to get the dependencies and build the project
         // In this stage an artifact is generated which is a JAR file.
-        sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
+        sh 'cd java-maven-sonar-argocd-helm-k8s-application/spring-boot-app && mvn clean package'
       }
     }
     stage('Static Code Analysis') {
