@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: pavanap5/jenkins-ci-cd:replaceImageTag
+        image: pavanap5/java-app-image:replaceImageTag
         ports:
         - containerPort: 8080
