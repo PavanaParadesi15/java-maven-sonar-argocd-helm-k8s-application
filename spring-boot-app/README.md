@@ -200,6 +200,67 @@ mvn clean package - When we just want the artifact to create docker image and pu
 
 
 
+### Next process is CD - 
+
+* Get the docker image created and updated in the deployment.yml file in git repo and deploy it on K8s cluster
+
+### Create ArgoCD Controller
+https://argocd-operator.readthedocs.io/en/latest/usage/basics/
+
+Copy the code in this link and create a file names "argocd-basic.yml" in Linux VM 
+Copy that  code in this file and execute the file with this command below
+``` 
+"argocd-basic.yml"
+nano argocd-basic.yml 
+kubectl apply -f argocd-basic.yml 
+```
+
+It created Argo CD controller and workloads
+
+#### NOTE :- 
+* To change Type of "example-argocd-server" from Cluster IP to NodePort as we have to access ArgoCD on browser, we have to edit "example-argocd-server"
+* example-argocd-server -- is the Argocd service
+* we can try to edit the "example-argocd-server" using this command below:
+```kubectl edit svc example-argocd-server````
+* But that is not changin Type from clusterIP to NodePort. "example-argocd-server"  service is automatically getting updated to default setting i.e, Type to changing to ClusterIP by default even after editing it. This is a Bug in service 
+https://github.com/argoproj-labs/argocd-operator/pull/1546
+* So to fix this, while creating ArgoCD controller, specify the "service: type: NodePort" . This created "example-argocd-server" as Tyoe Nodeport.
+
+To check if minikube is running and start and stop it, below commands
+```
+minikube status
+minikube start
+minikube stop
+```
+
+#### Kubectl commands
+```
+kubectl get pods    // gets running pods
+kubectl get pods -w    // see pods in watch mode
+kubectl get svc    // list down services . lists Argo CD servers
+kubectl get csv -n operators        // shows installed operators
+kubectl create deployment
+kubectl expose deployment
+```
+
+
+```kubectl get svc    // lists down the services
+* example-argocd-server      -- This is the Argo CD server
+* Edit this argocd-server to change the type from ClusterIP to NodePort to run Argo cd in the browser 
+
+``` 
+```
+kubectl edit svc example-argocd-server 
+kubectl get svc  // can see the updated port for argocd-server service 
+minikube service argocd-server   // minikube generates URL for Argo cd so that we can access ArgoCD in the browser
+minikube service list   // list the services with the port and URL . We can see argocd-server URL to access argocd through browser. 
+kubectl get pods    // before accessing argocd through browser, check is Argocd pods are up and running  
+```
+
+
+
+
+
 
 
 
