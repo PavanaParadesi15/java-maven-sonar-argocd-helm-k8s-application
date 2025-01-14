@@ -16,7 +16,7 @@ pipeline {
     }
     stage('Build and Test') {
       steps {
-        //sh 'ls -ltr'
+        sh 'ls -ltr'
         // build the project and create a JAR file
         // Maven is already available in the docker image which is used as agent in the initial steps
         // Go to application folder and execute maven target
