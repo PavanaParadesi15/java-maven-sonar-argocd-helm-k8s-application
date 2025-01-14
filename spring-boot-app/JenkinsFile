@@ -8,12 +8,24 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        sh 'echo passed'
+        steps {
+            checkout([
+                $class: 'GitSCM',
+                branches: [[name: '*/main']],
+                userRemoteConfigs: [[
+                    url: 'https://github.com/PavanaParadesi15/java-maven-sonar-argocd-helm-k8s-application/',
+                    credentialsId: 'github'
+                ]]
+            ])
+    sh 'echo passed'
         // We don't need to do anything here, as the source code is already checked out by Jenkins when the jenkins file is in the same directory as the application.
-        git branch: 'main', url: 'https://github.com/PavanaParadesi15/java-maven-sonar-argocd-helm-k8s-application.git'
-        credentialsId: 'github'
+        //git branch: 'main', url: 'https://github.com/PavanaParadesi15/java-maven-sonar-argocd-helm-k8s-application.git'
+        //credentialsId: 'github'
+      }
       }
     }
+  }
+  
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
