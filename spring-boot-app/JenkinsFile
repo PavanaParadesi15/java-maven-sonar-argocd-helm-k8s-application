@@ -36,7 +36,7 @@
     // Stage to build docker image and push it to docker hub
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "pavanap5/jenkins-ci-cd:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "pavanap5/java-app-image:${BUILD_NUMBER}"
         // DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
         // docker credentials stored in jenkins with name "docker" . Jenkins reads docker credentials from the credentials store.
         REGISTRY_CREDENTIALS = credentials('docker')
@@ -63,10 +63,10 @@
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
                     git config user.email "pavana.p0215@gmail.com"
-                    git config user.name "PavanaParadesi15"
+                    git config user.name "Pavana Paradesi"
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s-application/spring-boot-app-manifests/deployment.yml
-                    git add java-maven-sonar-argocd-helm-k8s-application/spring-boot-app-manifests/deployment.yml
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s-application/spring-boot-app/deployment.yml
+                    git add java-maven-sonar-argocd-helm-k8s-application/spring-boot-app/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
                 '''
