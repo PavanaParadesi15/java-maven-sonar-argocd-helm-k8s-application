@@ -254,6 +254,33 @@ kubectl get pods    // before accessing argocd through browser, check is Argocd 
 ```
 
 
+* Next using CD part, pull the latest docker image updated in deployment.yml file from GIT repo and deploy onto K8s cluster.
+![image](https://github.com/user-attachments/assets/269a1642-802b-4169-9628-6b28602e4251)
+
+* "example-argocd-server" is the Argocd service created with Type-NodePort mode so that we can access ArgoCD through browser.
+* To get the Argocd-service URL , give below commands
+```
+minikube service list
+minikube service example-argocd-server         // This gives the URL of argo-cd to access argocd-server through browser
+kubectl describe svc example-argocd-server -n default       // gives detailed information about the "example-argocd-server" with all the ports
+kubectl edit deployment example-argocd-server -n default          /// To edit to update the ArgoCD server container's configuration to listen on the correct port (8090
+
+```
+
+
+sudo lsof -i -P -n | grep 8080     /// To find which service is listening to port 8080
+sudo lsof -i -P -n           // list all the services and their ports
+
+
+
+
+
+
+
+
+
+
+
 
 
 
