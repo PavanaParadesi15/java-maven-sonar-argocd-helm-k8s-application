@@ -13,6 +13,11 @@
       }
     }
 
+       // build the project and create a JAR file
+        // Maven is already available in the docker image which is used as agent in the initial steps
+        // Go to application folder and execute maven target
+        //mvn clean package finds pom.xml in the repo, to get the dependencies and build the project
+        // In this stage an artifact is generated which is a JAR file.
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
