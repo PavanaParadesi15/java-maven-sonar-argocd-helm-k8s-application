@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: pavanap5/java-app-image:replaceImageTag
+        image: pavanap5/java-app-image:5
         ports:
         - containerPort: 8081    // Changed port 8080 to 8081 as, 8080 is used by jenkins already
