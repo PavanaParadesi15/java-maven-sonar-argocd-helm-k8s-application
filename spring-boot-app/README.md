@@ -152,7 +152,9 @@ _**useradd:**_
 * Go to Jenkins -> Manage Jenkins -> Credentials -> System -> Global credentials -> Click on Add credentials -> Add sonarqube token as Secrect text here. 
 * This will authenticate sonarqube with jenkins. 
 
-## Next Step - Installing Kubernetes
+## CD - Continuous Deployment
+
+### Next Step - Installing Kubernetes
 
 ### Install Minikube
 
@@ -168,7 +170,7 @@ https://minikube.sigs.k8s.io/docs/start/?arch=%2Flinux%2Fx86-64%2Fstable%2Fbinar
 
 https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 
-## ARGO CD 
+### ARGO CD 
 
 * Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
 * To install Argo CD, we need to install Argo CD controller first. 
@@ -183,7 +185,7 @@ To install ArgoCD operator -- https://operatorhub.io/operator/argocd-operator
 Install argocd through the steps in the above link
 
 
-## JenkinsFile
+### JenkinsFile
 
 CI part is done through Jenkins and CD part is done through ArgoCD which is GitOps tools to deploy application on K8s
 Difference between mvn clean install and mvn clean package 
@@ -196,12 +198,6 @@ mvn clean package - When we just want the artifact to create docker image and pu
 * Docker image is pushed to Docker Hub
 * deployment.yaml file is created where Argo CD pulls the deployment file from the git repository and deploys the application to the K8s cluster.
 * Jenkins updates the updated image to the deployment.yaml. For this we need to store docker and github credentials in Docker. So that jenkins should connect with docker and github
-
-
-
-
-### Next process is CD - 
-
 * Get the docker image created and updated in the deployment.yml file in git repo and deploy it on K8s cluster
 
 ### Create ArgoCD Controller
