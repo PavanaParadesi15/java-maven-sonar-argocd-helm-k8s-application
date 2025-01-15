@@ -7,7 +7,7 @@ spec:
   ports:
   - name: http
     port: 80
-    targetPort: 8090        // Changed port 8080 to 8081 as, 8080 is used by jenkins already
+    targetPort: 8081         // Changed port 8080 to 8081 as, 8080 is used by jenkins already
     protocol: TCP
   selector:
     app: spring-boot-app
