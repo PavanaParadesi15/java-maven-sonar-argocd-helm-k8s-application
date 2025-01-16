@@ -267,9 +267,66 @@ kubectl edit deployment example-argocd-server -n default          /// To edit to
 
 ```
 
+```
+sudo lsof -i -P -n | grep 8080 /// To find which service is listening to port 8080 
+sudo lsof -i -P -n // list all the services and their ports
+```
 
-sudo lsof -i -P -n | grep 8080     /// To find which service is listening to port 8080
-sudo lsof -i -P -n           // list all the services and their ports
+### Install Argo CD
+#### Create a Namespace
+
+**Create a namespace for Argo CD:**
+
+```
+kubectl create namespace argocd
+```
+```
+kubectl get -- namespaces           // Gives list of all available namespaces
+```
+#### Install Argo CD Components
+
+**Apply the Argo CD manifests:**
+```
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+```
+kubectl get all -n argocd          // gives list of all pods, deplopyments, services and replica sets with 'argocd' namespace
+```
+**Expose Argo CD Server**
+
+By default, the Argo CD server is exposed within the cluster. To access it externally, you need to port-forward or expose the service.
+#### Port-Forward
+
+**Run this command to port-forward the Argo CD server:**
+```
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+```
+Then we can access Argo CD through UI. Give username as "admin" and to retrive password give below command.
+```
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d     // command to retrieve password for admin user to login into argocd
+```
+![image](https://github.com/user-attachments/assets/9086bbd2-5561-4a10-bd10-57bc00e15700)
+
+
+
+### In the ArgoCD UI , follow the steps to create new app 
+* Click on "NEW APP" . Give app name , project name, sync policy as automatic
+*  Give source repo URL from git where the deployment.yml file is present
+* Give destination as Kubernetes default cluster URL 
+* Click on create. This creates the application automatically on k8s cluster through Argocd automatically fetching the deployment.yml  information 
+* It creates number of replicas of pods based on the replicas count we specify in deployment.yml
+
+```
+ kubectl get deploy           // shows the application deployments
+kubectl get pods              // shows the application pods 
+```
+
+
+Finally application deployed on K8S clouster through ArgoCD
+ 
+
+
+
 
 
 
